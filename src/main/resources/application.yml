@@ -7,5 +7,5 @@ server:
   port: ${PORT:8080}
 
 app:
-  message: Hello Spring Boot - local demo with Tanzu Build Service - Another Commit --> Build 3:37 PM!
+  message: Hello Spring Boot - local demo with Tanzu Build Service - Commit --> Build @9:42AM!
   title: Spring Boot with Cloud-native Buildpacks
