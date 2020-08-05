@@ -18,30 +18,31 @@ You'll need a Docker daemon running to build container images.
 If you run `pack` CLI for the first time, you need to set a default
 builder:
 ```bash
-$ pack set-default-builder cloudfoundry/cnb:bionic
-Builder cloudfoundry/cnb:bionic is now the default builder
+$ pack set-default-builder gcr.io/paketo-buildpacks/builder:base
+Builder gcr.io/paketo-buildpacks/builder:base is now the default builder
 ```
 
 You may select one of the suggested builders:
 ```bash
 $ pack suggest-builders
 Suggested builders:
-	Cloud Foundry:     cloudfoundry/cnb:bionic         Ubuntu bionic base image with buildpacks for Java, NodeJS and Golang
-	Cloud Foundry:     cloudfoundry/cnb:cflinuxfs3     cflinuxfs3 base image with buildpacks for Java, .NET, NodeJS, Python, Golang, PHP, HTTPD and NGINX
-	Cloud Foundry:     cloudfoundry/cnb:tiny           Tiny base image (bionic build image, distroless run image) with buildpacks for Golang
-	Heroku:            heroku/buildpacks:18            heroku-18 base image with buildpacks for Ruby, Java, Node.js, Python, Golang, & PHP
+	Google:                gcr.io/buildpacks/builder:v1                 Ubuntu 18 base image with buildpacks for .NET, Go, Java, Node.js, and Python                   
+	Heroku:                heroku/buildpacks:18                         heroku-18 base image with buildpacks for Ruby, Java, Node.js, Python, Golang, & PHP            
+	Paketo Buildpacks:     gcr.io/paketo-buildpacks/builder:base        Ubuntu bionic base image with buildpacks for Java, NodeJS and Golang                           
+	Paketo Buildpacks:     gcr.io/paketo-buildpacks/builder:full-cf     cflinuxfs3 base image with buildpacks for Java, .NET, NodeJS, Golang, PHP, HTTPD and NGINX     
+	Paketo Buildpacks:     gcr.io/paketo-buildpacks/builder:tiny        Tiny base image (bionic build image, distroless run image) with buildpacks for Golang          
 
 Tip: Learn more about a specific builder with:
-	pack inspect-builder [builder image]
+	pack inspect-builder <builder-image>
 ```
 
 You're now ready to use CNB.
 
 Run this command to build a container image:
 ```bash
-$ pack build myorg/cnb-springboot
+$ pack build triathlonguy/cnb-springboot
 ...
-Successfully built image myorg/cnb-springboot
+Successfully built image triathlonguy/cnb-springboot
 ```
 
 A lot of dependencies are downloaded in the first run.
@@ -52,12 +53,12 @@ to your local Docker daemon:
 ```bash
 $ docker image ls
 REPOSITORY                             TAG                  IMAGE ID    
-myorg/cnb-springboot                   latest               b1a0d242e5ec
+triathlonguy/cnb-springboot            latest               b1a0d242e5ec
 ```
 
 You can run this container right away:
 ```bash
-$ docker run --rm -p 8080:8080/tcp myorg/cnb-springboot
+$ docker run --rm -p 8080:8080/tcp triathlonguy/cnb-springboot
 Calculated JVM Memory Configuration: -XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=87457K -XX:ReservedCodeCacheSize=240M -Xss1M -Xmx68718877278K (Head Room: 0%, Loaded C
 lass Count: 13027, Thread Count: 250, Total Memory: 70368744177664)
 
@@ -94,22 +95,24 @@ $ kubectl apply -f k8s
 
 This app will be deployed to namespace `cnb-springboot`:
 ```bash
-kubectl -n cnb-springboot get pod,deployment,svc
 NAME                       READY   STATUS    RESTARTS   AGE
-pod/app-7c7957cb94-lpmk8   1/1     Running   0          35m
+pod/app-64b68d47f9-c4792   1/1     Running   0          38s
 
 NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/app   1/1     1            1           35m
+deployment.extensions/app   1/1     1            1           38s
 
-NAME          TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE
-service/app   LoadBalancer   10.100.200.35   35.187.115.254   80:30355/TCP   35m
+NAME          TYPE           CLUSTER-IP    EXTERNAL-IP      PORT(S)        AGE
+service/app   LoadBalancer   10.0.12.172   35.223.235.122   80:32720/TCP   38s
 ```
+
+Access the application by pointing your browser to the External IP of the service, or send a cURL request.
+In this sample, the URL would be `http://35.223.235.122` and the cUrl request `curl curl http://35.223.235.122`
 
 ## Contribute
 
 Contributions are always welcome!
 
-Feel free to open issues & send PR.
+Feel free to open issues & send PRs.
 
 ## License
 
