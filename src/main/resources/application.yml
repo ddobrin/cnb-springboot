@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: cnb-springboot
+
 management:
   endpoints:
     web:
@@ -7,5 +11,10 @@ server:
   port: ${PORT:8080}
 
 app:
+<<<<<<< HEAD
   message: Hello Spring Boot - local demo with Tanzu Build Service - fresh build from the develop branch!
   title: Spring Boot with Cloud-native Buildpacks
+=======
+  message: Hello Spring Boot @ ... after 1:00 PM !
+  title: Spring Boot with Cloud-native Buildpacks
+>>>>>>> master

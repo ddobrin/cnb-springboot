@@ -40,13 +40,13 @@ public class ApplicationTests {
     public void testIndex() {
         final ResponseEntity<String> resp = restTemplate.getForEntity("/", String.class);
         assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(resp.getBody()).contains("Hello Spring Boot!");
+        assertThat(resp.getBody()).contains("Hello Spring Boot");
     }
 
     @Test
     public void testGreetings() {
         assertThat(restTemplate.getForEntity("/greetings", String.class).getBody())
-                .isEqualTo("Hello Spring Boot!");
+                .startsWith("Hello Spring Boot");
     }
 
     @Test
