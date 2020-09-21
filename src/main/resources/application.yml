@@ -11,5 +11,5 @@ server:
   port: ${PORT:8080}
 
 app:
-  message: Hello Spring Boot @ ... after 3 PM !
+  message: Hello Spring Boot @ ... after 11 AM !
   title: Spring Boot with Cloud-native Buildpacks
